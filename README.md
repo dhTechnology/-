@@ -47,92 +47,7 @@
 
 ### 五子棋
 
-五子棋五子棋是比较流行的棋类游戏了，玩法简单，基本上人人会玩，在此就不介绍游戏规则了。下面使用 swift实现五子棋这个游戏，主要实现AI算法，包括极大值极小值算法，深度搜索算法，估值函数，Alpha Beta 剪枝算法等等。
-
-```swift
-//横向五子连珠（除去四边线的五子连珠）
-static func isFiveChess(_ point:SWSPoint,_ chessArray: [[FlagType]]) -> Bool {
-let type = chessArray[point.x][point.y]
-let pointLeft = SWSPoint()
-let pointRight = SWSPoint()
-let pointTop = SWSPoint()
-let pointBottom = SWSPoint()
-let pointLeft45 = SWSPoint()
-let pointRight45 = SWSPoint()
-let pointTop135  = SWSPoint()
-let pointBottom135 = SWSPoint()
-//东西方向
-var i = 0
-while point.x - i >= 0 && chessArray[point.x - i][point.y] == type {
-pointLeft.x = point.x - i
-i += 1
-}
-i = 0
-while point.x + i <= 14 && chessArray[point.x + i][point.y] == type {
-pointRight.x = point.x + i
-i += 1
-}
-
-if pointRight.x - pointLeft.x == 4 && (pointLeft.y != 15 || pointLeft.y != 0){
-return true
-}
-//南北方向
-i = 0
-while point.y - i >= 0 && chessArray[point.x][point.y-i] == type {
-pointTop.y = point.y - i
-i += 1
-}
-i = 0
-while point.y + i <= 14 && chessArray[point.x][point.y+i] == type {
-pointBottom.y = point.y + i
-i += 1
-}
-if pointBottom.y - pointTop.y == 4 && (pointTop.x != 15 || pointTop.x != 0) {
-return true
-}
-
-// 东北方向
-i = 0
-while point.x - i >= 0 && point.y + i <= 14 && chessArray[point.x - i][point.y + i] == type {
-pointLeft45.x = point.x - i
-pointLeft45.y = point.y + i
-i += 1
-}
-i = 0
-while point.x + i <= 14 && point.y - i >= 0 && chessArray[point.x + i][point.y - i] == type {
-pointRight45.x = point.x + i
-pointRight45.y = point.y - i
-i += 1
-}
-
-if pointLeft45.y - pointRight45.y == 4{
-return true
-}
-
-//西北方向
-i = 0
-while point.x - i >= 0 && point.y - i >= 0 && chessArray[point.x - i][point.y - i] == type {
-pointTop135.x = point.x - i
-pointTop135.y = point.y - i
-i += 1
-}
-i = 0
-while point.x + i <= 14 && point.y + i <= 14 && chessArray[point.x + i][point.y + i] == type {
-pointBottom135.x = point.x + i
-pointBottom135.y = point.y + i
-i += 1
-}
-if pointBottom135.y - pointTop135.y == 4{
-return true
-}
-
-return false
-}
-
-```
-
-在 [demo](https://github.com/tianjifou/Chess)中实现了五子棋的AI、同机、蓝牙、在线对战，下面重点介绍AI对战。
-
+五子棋五子棋是比较流行的棋类游戏了，玩法简单，基本上人人会玩，在此就不介绍游戏规则了。
 
 #### 五子棋的AI算法实现
 
@@ -233,7 +148,7 @@ return alpha;
 } 
 
 ```
-实际在代码中的运用，代码比较复杂请结合项目理解。[项目地址](https://github.com/tianjifou/Chess)
+
 
 ```swift
 static func getAIPoint(chessArray:inout[[FlagType]],role:FlagType,AIScore:inout [[Int]],humanScore:inout [[Int]],deep:Int) ->(Int,Int,Int)? {
@@ -500,7 +415,7 @@ return abs(b.2) > abs(a.2)
 ```
 
 #### 小结
-本次编写的AI还是比较强的，我胜利的机会很少，但还是存在赢的时候，因此AI算法还存在漏洞，主要表现在评分标准不准确和搜索深度不够问题上，如何优化评分标准和搜索算法，是实现AI无敌的关键工作。
+项目使用的AI算法还存在漏洞，主要表现在评分标准不准确和搜索深度不够问题上，如何优化评分标准和搜索算法，是实现AI无敌的关键工作。
 另外，在增加搜索深度的同时，遍历的节点指数增长，计算时间增长，可以结合哈希算法，保存每次的棋盘评分，一定程度上提高计算时间，这也只是治标不治本的做法。
 
 ### 蓝牙对战
