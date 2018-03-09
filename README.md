@@ -503,7 +503,7 @@ func advertiserAssistantDidDismissInvitation(_ advertiserAssistant: MCAdvertiser
 print("advertiserAssistantDidDismissInvitation")
 } 
 ```
-设置蓝牙连接页面，显示效果如图所示：
+设置蓝牙连接页面：
 
 
 ```swift
@@ -515,7 +515,6 @@ browser = MCBrowserViewController.init(serviceType: serviceStr,  session: sessio
 browser?.delegate = self
 }
 ```
-![image](http://img.blog.csdn.net/20170731144916348?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGlhbmppZm91/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 实现MCBrowserViewControllerDelegate代理方法
 
